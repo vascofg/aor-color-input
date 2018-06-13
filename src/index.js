@@ -1,12 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import inflection from 'inflection';
-import TextField from 'material-ui/TextField';
+import { addField, FieldTitle } from 'ra-core';
+import TextField from '@material-ui/core/TextField';
 import * as ReactColor from 'react-color';
+import get from 'lodash.get';
+import pure from 'recompose/pure';
 
 require('./ColorInput.css');
 
-class ColorInput extends React.Component {
+const ColorFieldComponent = ({ source, record = {}, className }) =>
+  (
+    <div style={{ display: 'flex' }}>
+      <div style={{
+        width: '20px',
+        height: '20px',
+        background: get(record, source),
+        marginRight: '5px',
+      }}
+      />
+      <span className={className}>{get(record, source)}</span>
+    </div>
+  );
+
+ColorFieldComponent.propTypes = {
+  addLabel: PropTypes.bool,
+  className: PropTypes.string,
+  elStyle: PropTypes.object,
+  label: PropTypes.string,
+  record: PropTypes.object,
+  source: PropTypes.string.isRequired,
+};
+
+const PureTextField = pure(ColorFieldComponent);
+
+PureTextField.defaultProps = {
+  addLabel: true,
+};
+
+class ColorInputComponent extends React.Component {
   state = {
     show: false
   };
@@ -24,10 +56,12 @@ class ColorInput extends React.Component {
       source,
       touched,
       error,
-      elStyle,
+      className,
       options,
       picker,
       input,
+      resource,
+      isRequired,
     } = this.props;
 
     const Picker = ReactColor[`${picker}Picker`];
@@ -36,10 +70,19 @@ class ColorInput extends React.Component {
       <div>
         <TextField
           {...input}
+          margin="normal"
           onFocus={this.handleOpen}
-          floatingLabelText={ label || inflection.humanize(source) }
-          errorText={touched && error}
-          style={elStyle}
+          label={
+            <FieldTitle
+                label={label}
+                source={source}
+                resource={resource}
+                isRequired={isRequired}
+            />
+          }
+          error={!!(touched && error)}
+          helperText={touched && error}
+          className={className}
         />
         {
           this.state.show?
@@ -61,23 +104,23 @@ class ColorInput extends React.Component {
   }
 };
 
-ColorInput.propTypes = {
-  addField: PropTypes.bool.isRequired,
+ColorInputComponent.propTypes = {
   label: PropTypes.string,
   options: PropTypes.object,
   source: PropTypes.string,
   input: PropTypes.object,
+  className: PropTypes.string,
   picker: (props, propName, componentName) =>
     !ReactColor[`${props[propName]}Picker`] &&
     new Error(`Invalid prop \`${propName}\` supplied to \`${componentName}\`.`)
 };
 
-ColorInput.defaultProps = {
-  addField: true,
+ColorInputComponent.defaultProps = {
   picker: 'Chrome',
   options: {
     disableAlpha: true
   },
 };
 
-export default ColorInput;
+export const ColorField = PureTextField;
+export const ColorInput = addField(ColorInputComponent);
