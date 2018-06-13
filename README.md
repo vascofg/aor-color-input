@@ -1,13 +1,21 @@
-# `<ColorInput>`
+# `<ColorInput> and <ColorField>`
 
-A color picker for [admin-on-rest](https://github.com/marmelab/admin-on-rest) using [React Color](http://casesandberg.github.io/react-color/), a collection of color pickers.
+A color picker for [react-admin](https://github.com/marmelab/react-admin) using [React Color](http://casesandberg.github.io/react-color/), a collection of color pickers.
 
 ![color-input.gif](color-input.gif)
+
+Also includes a color field for just displaying the color value.
+
+![color-field.png](color-field.png)
+
+## Notice
+
+This module was originally created for [admin-on-rest](https://github.com/marmelab/admin-on-rest) by @dreinke and was forked from his [repository](https://github.com/dreinke/aor-color-input).
 
 ## Installation
 
 ```sh
-npm install aor-color-input --save-dev
+npm install react-admin-color-input --save-dev
 ```
 
 ## Usage
@@ -51,7 +59,6 @@ You can customize the color picker using the `picker` attribute.
 - Slider
 - Swatches
 - Twitter
-
 
 ## License
 
