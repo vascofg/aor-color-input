@@ -23,12 +23,22 @@ npm install react-admin-color-input --save-dev
 ```js
 import React from 'react';
 import {
+    Show,
+    TextField,
     Edit,
     TextInput,
     LongTextInput,
-} from 'admin-on-rest/mui';
+} from 'react-admin';
 
-import ColorInput from 'aor-color-input';
+import { ColorField, ColorInput } from 'react-admin-color-input';
+
+export const PostShow = (props) => (
+    <Show {...props}>
+        <TextField source="title" />
+        <TextField source="body" />
+        <ColorField source="color" />
+    </Edit>
+);
 
 export const PostEdit = (props) => (
     <Edit {...props}>
