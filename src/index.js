@@ -54,8 +54,7 @@ class ColorInputComponent extends React.Component {
     const {
       label,
       source,
-      touched,
-      error,
+      meta,
       className,
       options,
       picker,
@@ -63,6 +62,11 @@ class ColorInputComponent extends React.Component {
       resource,
       isRequired,
     } = this.props;
+
+    const {
+      touched,
+      error,
+    } = meta;
 
     const Picker = ReactColor[`${picker}Picker`];
 
