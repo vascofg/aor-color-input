@@ -113,6 +113,10 @@ ColorInputComponent.propTypes = {
   options: PropTypes.object,
   source: PropTypes.string,
   input: PropTypes.object,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+  }),
   className: PropTypes.string,
   picker: (props, propName, componentName) =>
     !ReactColor[`${props[propName]}Picker`] &&
