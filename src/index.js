@@ -54,8 +54,7 @@ class ColorInputComponent extends React.Component {
     const {
       label,
       source,
-      touched,
-      error,
+      meta,
       className,
       options,
       picker,
@@ -63,6 +62,11 @@ class ColorInputComponent extends React.Component {
       resource,
       isRequired,
     } = this.props;
+
+    const {
+      touched,
+      error,
+    } = meta;
 
     const Picker = ReactColor[`${picker}Picker`];
 
@@ -109,6 +113,10 @@ ColorInputComponent.propTypes = {
   options: PropTypes.object,
   source: PropTypes.string,
   input: PropTypes.object,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+  }),
   className: PropTypes.string,
   picker: (props, propName, componentName) =>
     !ReactColor[`${props[propName]}Picker`] &&
