@@ -60,6 +60,7 @@ class ColorInputComponent extends React.Component {
       picker,
       input,
       resource,
+      helperText,
       isRequired,
     } = this.props;
 
@@ -85,7 +86,7 @@ class ColorInputComponent extends React.Component {
             />
           }
           error={!!(touched && error)}
-          helperText={touched && error}
+          helperText={touched && error || helperText}
           className={className}
         />
         {
@@ -113,6 +114,7 @@ ColorInputComponent.propTypes = {
   options: PropTypes.object,
   source: PropTypes.string,
   input: PropTypes.object,
+  helperText: PropTypes.string,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
