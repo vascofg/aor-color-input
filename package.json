@@ -1,6 +1,6 @@
 {
   "name": "react-admin-color-input",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "<ColorInput> and <ColorField> components for react-admin. Forked from aor-color-input.",
   "main": "lib/index.js",
   "scripts": {
