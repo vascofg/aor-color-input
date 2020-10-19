@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import * as ReactColor from 'react-color';
 import get from 'lodash.get';
 import pure from 'recompose/pure';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 require('./ColorInput.css');
 
@@ -88,6 +89,17 @@ class ColorInputComponent extends React.Component {
           error={!!(touched && error)}
           helperText={touched && error || helperText}
           className={className}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">
+              <div style={{
+                width: '20px',
+                height: '20px',
+                background: input.value,
+                marginRight: '5px',
+              }}
+              />
+            </InputAdornment>,
+          }}
         />
         {
           this.state.show?
