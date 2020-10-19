@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import * as ReactColor from 'react-color';
 import get from 'lodash.get';
 import pure from 'recompose/pure';
+import { FocusWithin } from 'react-focus-within'
 
 require('./ColorInput.css');
 
@@ -72,39 +73,43 @@ class ColorInputComponent extends React.Component {
     const Picker = ReactColor[`${picker}Picker`];
 
     return (
-      <div>
-        <TextField
-          {...input}
-          margin="normal"
-          onFocus={this.handleOpen}
-          label={
-            <FieldTitle
-                label={label}
-                source={source}
-                resource={resource}
-                isRequired={isRequired}
+        <FocusWithin onBlur={(event) => this.handleClose()}>
+          {({ focusProps, isFocused }) => (
+              <div {...focusProps}>
+            <TextField
+              {...input}
+              margin="normal"
+              onFocus={this.handleOpen}
+              label={
+                <FieldTitle
+                    label={label}
+                    source={source}
+                    resource={resource}
+                    isRequired={isRequired}
+                />
+              }
+              error={!!(touched && error)}
+              helperText={touched && error || helperText}
+              className={className}
             />
-          }
-          error={!!(touched && error)}
-          helperText={touched && error || helperText}
-          className={className}
-        />
-        {
-          this.state.show?
-            <div className="ColorInput-popup">
-              <div
-                className="ColorInput-cover"
-                onClick={this.handleClose}
-              />
-              <Picker
-                {...options}
-                color={input.value}
-                onChange={this.handleChange}
-              />
-            </div>
-            : null
-        }
-      </div>
+            {
+              this.state.show?
+                <div className="ColorInput-popup">
+                  <div
+                    className="ColorInput-cover"
+                    onClick={this.handleClose}
+                  />
+                  <Picker
+                    {...options}
+                    color={input.value}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                : null
+            }
+          </div>
+          )}
+        </FocusWithin>
     )
   }
 };
